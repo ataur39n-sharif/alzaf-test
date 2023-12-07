@@ -1,3 +1,4 @@
+import { categories } from "@/app/page";
 import Image from "next/image";
 import Link from "next/link";
 import CartGroup from "../assets/cart";
@@ -21,16 +22,58 @@ export default function Navbar() {
                     <div className="flex gap-5">
                         <Link href={''}>Become a seller</Link>
                         <Link href={''}>Order Track</Link>
-                        <Link href={''} className="gap-5 text-[#F97316]">
+                        <div className="gap-5 text-[#F97316]">
                             <Link href={'/signup'}>Sign up</Link>
                             <span>{"/"}</span>
                             <Link href={'/login'}>Login</Link>
-                        </Link>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <nav className="container flex justify-between items-center gap-5">
+            <nav className="relative container flex justify-between items-center gap-5">
+                <div className="absolute z-10 left-0 top-[73px]">
+                    <div className="bg-white relative  w-[230px] min-h-[380px] flex flex-col items-start justify-between py-2">
+                        {categories.map((category: any, index: number) => {
+                            return (
+                                <div
+                                    key={index}
+                                    className=" rounded-md px-2  [&>:nth-child(2)]:hover:flex [&>:first-child]:hover:text-orange-400 w-full"
+                                >
+                                    <p className="cursor-pointer">{category.name}</p>
+                                    <div className="absolute top-0 left-[225px] w-[230px] rounded-md px-2  hidden bg-white z-10 min-h-[380px] flex-col items-start justify-between py-2">
+                                        {category.childrens.map((child: any, i: number) => {
+                                            return (
+                                                <div
+                                                    key={i}
+                                                    className=" rounded-md px-2 [&>:nth-child(2)]:hover:block [&>:first-child]:hover:text-orange-400 w-full"
+                                                >
+                                                    <p className="cursor-pointer">{child.name}</p>
+                                                    <div className="absolute top-0 left-[220px] w-[230px]  rounded-md px-2  hidden [&>*:nth-child(2)]:hover:block z-20 min-h-[380px] bg-white py-2">
+                                                        {child.childrens.map(
+                                                            (secondChild: any, i: number) => {
+                                                                return (
+                                                                    <div
+                                                                        key={i}
+                                                                        className="rounded-md px-2"
+                                                                    >
+                                                                        <p className="hover:text-orange-500 cursor-pointer">
+                                                                            {secondChild.name}
+                                                                        </p>
+                                                                    </div>
+                                                                );
+                                                            }
+                                                        )}
+                                                    </div>
+                                                </div>
+                                            );
+                                        })}
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+                </div>
                 <Image
                     src="/alzaf-logo.svg"
                     width={500}
